@@ -16,12 +16,15 @@ use function Ramsey\Uuid\v1;
 //         'name' => "cho cho theint"
 //     ]);
 // });
-Route::get('/blogs',function(){
+Route::get('/',function(){
     return view('blogs');
 });
-Route::get('/blogs/{blog}',function($blog){
-    $path = '../resources/blogs/first-blog.html';
-
+Route::get('/blogs/{filename}',function($filename){
+    $path = resource_path("/blogs/$filename.html");
+    if(!file_exists($path)){
+        // abort(404);
+        return redirect('/');
+    }
     $blogContent = file_get_contents($path);
     return view('blog',[
         'blog' => $blogContent
