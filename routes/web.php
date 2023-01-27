@@ -23,9 +23,9 @@ Route::get('/',function(){
         'blogs' =>Blog::all()
     ]);
 });
-Route::get('/blogs/{filename}',function($filename){
-    $blogContent = Blog::find($filename);
+Route::get('/blogs/{slug}',function($slug){
+    $blog = Blog::findOrFail($slug);
     return view('blog',[
-        'blog' => $blogContent
+        'blog' => $blog
         ]);
-})->where('filename','[A-z\0-9\-]+');
+})->where('slug','[A-z\0-9\-]+');
