@@ -8,7 +8,7 @@
 @section('content')
 @foreach($blogs as $blog)
         <h1>
-            <a href="blogs/{{ $blog->slug }}">{{ $blog->title }}</a> 
+            <a href="blogs/{{ $blog->id }}">{{ $blog->title }}</a> 
             {{ $blog->date }}
         </h1>
         

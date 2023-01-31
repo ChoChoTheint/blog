@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Blog;
 
@@ -17,15 +18,5 @@ use function Ramsey\Uuid\v1;
 //         'name' => "cho cho theint"
 //     ]);
 // });
-Route::get('/',function(){
-    
-    return view('blogs',[
-        'blogs' =>Blog::all()
-    ]);
-});
-Route::get('/blogs/{slug}',function($slug){
-    $blog = Blog::findOrFail($slug);
-    return view('blog',[
-        'blog' => $blog
-        ]);
-})->where('slug','[A-z\0-9\-]+');
+Route::get('/',[BlogController::class,'index']);
+Route::get('/blogs/{blog}',[BlogController::class,'show'])->where('id','[A-z\0-9\-]+');
