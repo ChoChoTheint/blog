@@ -9,7 +9,7 @@
 @foreach($blogs as $blog)
         <h1>
             <a href="blogs/{{ $blog->id }}">{{ $blog->title }}</a> 
-            {{ $blog->date }}
+            {{ $blog->created_at->diffForHumans() }}
         </h1>
         
         <div>
