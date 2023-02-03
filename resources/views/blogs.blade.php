@@ -14,6 +14,7 @@
         
         <div>
             <p>{{ $blog->body }}</p>
+            <p>Category - {{$blog->category->name}} </p>
         </div>
 @endforeach
 @endsection
