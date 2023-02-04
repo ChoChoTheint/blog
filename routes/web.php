@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Blog;
 
@@ -20,3 +21,4 @@ use function Ramsey\Uuid\v1;
 // });
 Route::get('/',[BlogController::class,'index']);
 Route::get('/blogs/{blog}',[BlogController::class,'show'])->where('id','[A-z\0-9\-]+');
+Route::get('/categories/{category:slug}',[CategoryController::class,'index'])->where('id','[A-z\d\-_]+');
