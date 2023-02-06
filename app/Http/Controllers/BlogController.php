@@ -16,7 +16,8 @@ class BlogController extends Controller
     public function show(Blog $blog){
         
             return view('blog',[
-                'blog' => $blog
+                'blog' => $blog,
+                'ramdomBlogs' => Blog::inRandomOrder()->take(2)->get()
                 ]);
         
     }
