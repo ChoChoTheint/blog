@@ -1,4 +1,5 @@
-@props(['blogs'])
+@props(['blogs','categories','currentCategory'])
+<!-- @dd($categories) -->
 
 
 <section class="container text-center" id="blogs">
@@ -6,19 +7,23 @@
       <div class="">
           <div class="dropdown">
             <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown button
+              <!-- {{isset($currentCategory) ? $currentCategory->name : 'Filter By Category'}} -->
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
+              @foreach ($categories as $category)
+              <li><a class="dropdown-item" href="/?category={{$category->slug}}">{{$category->name}}</a></li>
+              @endforeach
             </ul>
           </div>
         <!-- <select name="" id="" class="p-1 rounded-pill mx-3">
           <option value="">Filter by Tag</option>
         </select> -->
       </div>
-      <form action="" class="my-3">
+      <form action="/" class="my-3" method="GET">
         <div class="input-group mb-3">
           <input
+            name="search"
+            value="{{request('search')}}"
             type="text"
             autocomplete="false"
             class="form-control"
@@ -34,11 +39,14 @@
         </div>
       </form>
       <div class="row">
-        @foreach($blogs as $blog)
-          <div class="col-md-4 mb-4">
-            <x-blog-card :blog="$blog"></x-blog-card>
-          </div>
-        @endforeach
+        
+          @forelse($blogs as $blog)
+            <div class="col-md-4 mb-4">
+              <x-blog-card :blog="$blog"></x-blog-card>
+            </div>
+          @empty
+          <p>There is no blogs for that search value.</p>
+          @endforelse
 
       </div>
     </section>

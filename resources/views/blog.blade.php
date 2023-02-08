@@ -10,7 +10,12 @@
             alt="..."
           />
           <h3 class="my-3">{{$blog->title}}</h3>
-          <p class="lh-md">
+          <div>
+            <!-- <div>Author - <a href="/users/{{$blog->author->username}}">{{$blog->author->name}}</a></div> -->
+            <div><a href="/categories/{{$blog->category->slug}}"><span class="badge bg-primary">{{$blog->category->name}}</span></a></div>
+            <div class="text-secondary">{{$blog->created_at->diffForHumans()}}</div>
+          </div>
+          <p class="lh-md mt-3">
             {{$blog->body}}
           </p>
         </div>
