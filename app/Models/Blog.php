@@ -18,8 +18,7 @@ class Blog extends Model
                         $query->where('title','LIKE','%'.'$search'.'%')
                               ->orWhere('body','LIKE','%'.'$search'.'%');
                     });
-                    
-       });
+        });
 
        $query->when($filters['category'] ?? false,function($query,$slug){
         $query->whereHas('category',function($query) use($slug){

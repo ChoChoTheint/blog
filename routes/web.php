@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ use function Ramsey\Uuid\v1;
 Route::get('/',[BlogController::class,'index']);
 Route::get('/blogs/{blog:slug}',[BlogController::class,'show'])->where('id','[A-z\0-9\-]+');
 Route::get('/categories/{category:slug}',[CategoryController::class,'index'])->where('id','[A-z\d\-_]+');
+Route::get('/register',[AuthController::class,'create']);

@@ -47,6 +47,6 @@
           @empty
           <p>There is no blogs for that search value.</p>
           @endforelse
-
+        {{$blogs->links()}}
       </div>
     </section>
