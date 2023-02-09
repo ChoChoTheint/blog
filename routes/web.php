@@ -21,6 +21,6 @@ use function Ramsey\Uuid\v1;
 //     ]);
 // });
 Route::get('/',[BlogController::class,'index']);
-Route::get('/blogs/{blog:slug}',[BlogController::class,'show'])->where('id','[A-z\0-9\-]+');
+Route::get('/blogs/{blog:slug}',[BlogController::class,'show'])->where('blog','[A-z\0-9\-]+');
 Route::get('/categories/{category:slug}',[CategoryController::class,'index'])->where('id','[A-z\d\-_]+');
 Route::get('/register',[AuthController::class,'create']);

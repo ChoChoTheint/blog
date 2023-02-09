@@ -14,8 +14,8 @@ class BlogController extends Controller
     public function index(){
         // $blogs = $this->getBlogs();
         return view('blogs',[
-        'blogs' =>Blog::latest()->filter(request(['search','category']))->paginate(6),
-        'categories' => Category::all()
+        'blogs' =>Blog::latest()->filter(request(['search','category']))->paginate(3)->withQueryString()
+        
             ]);
     }
 
@@ -23,7 +23,7 @@ class BlogController extends Controller
         
             return view('blog',[
                 'blog' => $blog,
-                'ramdomBlogs' => Blog::inRandomOrder()->take(2)->get(),
+                'ramdomBlogs' => Blog::inRandomOrder()->take(2)->get()
                 // 'categories' => Category::all()
                 ]);
         

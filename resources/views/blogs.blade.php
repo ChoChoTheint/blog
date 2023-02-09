@@ -5,8 +5,7 @@
     <x-hero></x-hero>
     
     <x-blog-section 
-    :blogs="$blogs" 
-    :categories="$categories" 
+    :blogs="$blogs"
     
     ></x-blog-section>
     <x-subscribe></x-subscribe>
