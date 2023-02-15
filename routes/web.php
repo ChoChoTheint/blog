@@ -1,13 +1,16 @@
 <?php
 
+use App\Models\Blog;
+use function Ramsey\Uuid\v1;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
-use Illuminate\Support\Facades\Route;
-use App\Models\Blog;
-use Illuminate\Http\Request;
-
-use function Ramsey\Uuid\v1;
+use App\Models\Category;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -24,17 +27,33 @@ use function Ramsey\Uuid\v1;
 Route::get('/',[BlogController::class,'index']);
 Route::get('/blogs/{blog:slug}',[BlogController::class,'show'])->where('blog','[A-z\0-9\-]+');
 Route::get('/categories/{category:slug}',[CategoryController::class,'index'])->where('id','[A-z\d\-_]+');
+Route::get('/users/{user::username}',function(User $user){
+    return view('blogs',[
+        'blogs' =>$user->blogs,
+        'categories' =>Category::all()
+    ]);
+});
+
 Route::get('/register',[AuthController::class,'create']);
 
 Route::post('/register',function(Request $request){
-    request()->validate([
+      $cleanData = request()->validate([
         'name' => 'required',
         'username' => 'required',
-        'email' => ['required','email'],
+        'email' => ['required','email',Rule::unique('users','email')],
         'password' => 'required',
     ],[
         'email.required' => 'We need to know your email address!',
         'email.email' => 'Your email is not a valid email address!',
     ]);
-    dd('hit');
+    $user = new User();
+    $user->name = $cleanData['name'];
+    $user->username = $cleanData['username'];
+    $user->email = $cleanData['email'];
+    $user->password = bcrypt($cleanData['password']);
+    $user->save();
+
+    auth()->login($user);
+    return redirect('/');
+
 });

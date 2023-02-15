@@ -1,5 +1,3 @@
-
-
 <x-layout>
 
     <x-hero></x-hero>
