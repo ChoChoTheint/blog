@@ -1,16 +1,17 @@
 <?php
 
 use App\Models\Blog;
+use App\Models\Category;
 use function Ramsey\Uuid\v1;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
-use App\Models\Category;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -54,6 +55,22 @@ Route::post('/register',function(Request $request){
     $user->save();
 
     auth()->login($user);
-    return redirect('/');
+    return redirect('/')->with('success','Welcome Back');
 
+});
+Route::get('/login',function(){
+    return view('login.index');
+});
+Route::post('login',function(){
+   $user = User::where('email',request('email'))->first();
+   if($user){
+    if(Hash::check(request('password'),$user->password)){
+        auth()->login($user);
+        return redirect('/')->with('success','Welcome back' . $user->name);
+    }
+   }
+});
+Route::post('/logout',function(){
+   auth()->logout();
+   return redirect('/');
 });
