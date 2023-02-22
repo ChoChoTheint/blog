@@ -10,7 +10,8 @@
               <h3 class="card-title">{{$blog->title}}</h3>
               <p class="fs-6 text-secondary">
                  Hlaing Min Than
-                <span> - {{$blog->created_at->diffForHumans()}}</span>
+                <span>- {{ \Carbon\Carbon::parse($blog->created_at)->diffForHumans() }}</span>
+
               </p>
               <div class="tags my-3">
                 <a href="/categories/{{$blog->category->slug}}"><span class="badge bg-primary">{{$blog->category->name}}</span></a>
@@ -22,6 +23,6 @@
               <p class="card-text">
                 {{$blog->slug}}
               </p>
-              <a href="{{$blog->body}}" class="btn btn-primary">Read More</a>
+              <a href="/blogs/{{$blog->slug}}" class="btn btn-primary">Read More</a>
             </div>
-          </div>
+          </div> 

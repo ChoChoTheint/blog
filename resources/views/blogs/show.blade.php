@@ -1,8 +1,3 @@
-
-
-
-
-
 <x-layout>
     <!-- single blog section -->
     <div class="container">
@@ -15,10 +10,10 @@
                 />
                 <h3 class="my-3">{{$blog->title}}</h3>
                 <div>
-                    
+                    <div>Author - <a href="/?author={{$blog->author->username}}">{{$blog->author->name}}</a></div>
                     <div><a href="/categories/{{$blog->category->slug}}"><span
                                 class="badge bg-primary">{{$blog->category->name}}</span></a></div>
-                    <div class="text-secondary">{{ \Carbon\Carbon::parse($blog->created_at)->diffForHumans() }}</div>
+                    <div class="text-secondary">{{$blog->created_at->diffForHumans()}}</div>
                 </div>
                 <p class="lh-md mt-3">
                     {{$blog->body}}
@@ -31,6 +26,5 @@
         :blog="$blog"
     />
     <x-subscribe />
-    @dd('hit');
     <x-blogs_you_may_like_section :randomBlogs="$randomBlogs" />
 </x-layout>
