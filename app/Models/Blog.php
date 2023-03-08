@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Blog extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    protected $with = ['category', 'author'];
     public function category(){
         return $this->belongsTo(Category::class);
     }
-    public function user(){
+    public function author(){
         return $this->belongsTo(User::class,'user_id');
     }
     public function scopeFilter($query,$filters){
@@ -40,6 +42,9 @@ class Blog extends Model
         }
         public function comments(){
             return $this->hasMany(Comment::class);
+        }
+        public function subscribedUsers(){
+            return $this->belongsToMany(User::class,'blog_user');
         }
                
 }

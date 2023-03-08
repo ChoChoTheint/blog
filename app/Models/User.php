@@ -47,11 +47,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function setNameAttribute($value){
+
+    public function getNameAttribute($value){
         return ucfirst($value);
     }
-    // public function setPasswordAttribute($value)
-        // {
-            // $this->attributes['password'] = bcrypt($value);
-        // }
+    public function getProfileAttribute($value)
+    {
+        return $value ? $value : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+    }
+
+    public function setPasswordAttribute($value)
+        {
+            $this->attributes['password'] = bcrypt($value);
+        }
+    public function subscribedBlogs()
+    {
+        return $this->belongsToMany(Blog::class,'blog_user');
+    }
+    public function isSubscribed($blog){
+        return auth()->user()->subscribedBlogs 
+                 && auth()->user()->subscribedBlogs->contains('id',$blog->id);
+
+    
+
+    }
 }

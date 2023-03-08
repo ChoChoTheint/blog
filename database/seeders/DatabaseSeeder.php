@@ -18,8 +18,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(20)->create();
-        Blog::factory(20)->create();
+        User::truncate();
+        Blog::truncate();
+        Category::truncate();
+
+        $frontend=Category::factory()->create(['name'=>'frontend']);
+        $backend=Category::factory()->create(['name'=>'backend']);
+
+        Blog::factory(2)->create(['category_id'=>$frontend->id]);
+        Blog::factory(2)->create(['category_id'=>$backend->id]);
+        User::truncate();
+        Blog::truncate();
+        Category::truncate();
+
+        $frontend=Category::factory()->create(['name'=>'frontend']);
+        $backend=Category::factory()->create(['name'=>'backend']);
+
+        Blog::factory(2)->create(['category_id'=>$frontend->id]);
+        Blog::factory(2)->create(['category_id'=>$backend->id]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

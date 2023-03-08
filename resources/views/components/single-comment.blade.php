@@ -4,7 +4,7 @@
     <div class="d-flex">
         <div>
             <img
-                src="#"
+                src="{{$comment->author->profile}}"
                 width="50"
                 height="50"
                 class="rounded-circle"
@@ -12,7 +12,7 @@
             >
         </div>
         <div class="ms-3">
-            <h6>Haing Min Than</h6>
+            <h6>{{$comment->author->name}}</h6>
             <p class="text-secondary">{{ \Carbon\Carbon::parse($comment->created_at)->diffForHumans() }}</p>
         </div>
     </div>

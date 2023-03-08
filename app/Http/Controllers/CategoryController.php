@@ -10,7 +10,7 @@ class CategoryController extends Controller
     
     public function index(Category $category){
     
-        return view('blogs',[
+        return view('blogs.index',[
             'blogs' => $category->blogs->load('category'),
             'categories' => Category::all(),
             'currentCategory'=>$category

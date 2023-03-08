@@ -13,16 +13,16 @@ class BlogController extends Controller
     // } 
     public function index(){
         // $blogs = $this->getBlogs();
-        return view('blogs',[
-        'blogs' =>Blog::latest()->filter(request(['search','category']))->paginate(3)->withQueryString()
+        return view('blogs.index',[
+        'blogs' =>Blog::latest()->filter(request(['search','category','author']))->paginate(3)->withQueryString()
         
             ]);
     }
 
     public function show(Blog $blog){
         
-            return view('blog',[
-                'blog' => $blog,
+            return view('blogs.show',[
+                'blog' => $blog->load('comments'),
                 'ramdomBlogs' => Blog::inRandomOrder()->take(2)->get()
                 // 'categories' => Category::all()
                 ]);
