@@ -9,58 +9,23 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SubscriberMail extends Mailable
+class SubscriberMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public $user;
-    public function __construct($user)
+    public $comment;
+    public function __construct($user, $comment)
     {
         $this->user = $user;
+        $this->comment = $comment;
     }
 
-    /**
-     * Get the message envelope.
-     *
-     * @return \Illuminate\Mail\Mailables\Envelope
-     */
-    // public function envelope()
-    // {
-        // return new Envelope(
-            // subject: 'Subscriber Mail',
-        // );
-    // }
-
-    /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
-     */
-    // public function content()
-    // {
-        // return new Content(
-            // view: 'view.user',
-        // );
-    // }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array
-     */
-    // public function attachments()
-    // {
-        // return [];
-    // }
-    public function build(){
-        return $this->view('emails.subscriber-mail',[
-            'user' => $this->user
+    public function build()
+    {
+        return $this->view('email.subscriber-mail', [
+            'user' => $this->user,
+            'comment' => $this->comment
         ]);
-        
     }
 }

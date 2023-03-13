@@ -7,7 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello email {{$user->name}}</h1>
-    <h1>Hello email {{$user->email}}</h1>
+    <h1>Hello {{$user->name}}</h1>
+    <p>we've got new message for your subscribed blog</p>
+    <p>{{$comment->body}}</p>
 </body>
 </html>
