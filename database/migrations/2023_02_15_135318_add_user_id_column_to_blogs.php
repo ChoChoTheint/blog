@@ -15,8 +15,10 @@ return new class extends Migration
     {
 
         Schema::table('blogs', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->after('category_id');
-            $table->foreign('user_id')->references('id')->on('blogs');
+            // $table->unsignedBigInteger('user_id')->after('category_id');
+            // $table->foreign('user_id')->references('id')->on('blogs');
+
+            $table->foreignId('user_id');
        });
     }
 

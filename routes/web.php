@@ -45,6 +45,7 @@ Route::post('/blogs/{blog:slug}/comments',[CommentController::class,'store'])->n
 Route::post('/blogs/{blog:slug}/subscription',[SubscriptionController::class,'toggleSubscription']);
 
 Route::get('/admin',[AdminBlogController::class,'index'])->middleware('admin');
+Route::get('/admin/create',[AdminBlogController::class,'create'])->middleware('admin');
 
 Route::post('/admin/blogs',[AdminBlogController::class,'store']);
-
+Route::delete('/admin/blogs/{blog}',[AdminBlogController::class,'destory']);

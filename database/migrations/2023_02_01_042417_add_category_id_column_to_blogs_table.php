@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('blogs', function (Blueprint $table) {
-             $table->unsignedBigInteger('category_id')->after('body');
+            //  $table->unsignedBigInteger('category_id')->after('body');
             //  $table->foreign('category_id')->references('id')->on('categories');
+
+
+             $table->foreignId('category_id')->constrained();
         });
     }
 
