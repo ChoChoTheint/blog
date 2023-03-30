@@ -12,16 +12,25 @@
             <span> -{{\Carbon\Carbon::parse($blog->created_at)->diffForHumans()}}</span>
         </p>
         <div class="tags my-3">
-            <a href="/categories/{{$blog->category->slug}}"><span
+        <!--  -->
+        <!--/categories/{{$blog->category->name}} -->
+            <a href="/?category={{$blog->category->slug}}"><span
                     class="badge bg-primary">{{$blog->category->name}}</span></a>
         </div>
         <p class="card-text">
             {{$blog->intro}}
         </p>
 
-        <!-- /blogs/{{$blog->slug}} -->
-        <a
-            href="/blogs/{{$blog->slug}} "
+       <!-- <p> -->
+            <!-- {{$blog->slug}} -->
+       <!-- </p> -->
+
+
+       <!-- 
+            /?users=/{$user->username}
+            /blogs/{blog:slug}
+        -->
+       <a href="/blogs/{{$blog->slug}} " 
             class="btn btn-primary"
         >Read More</a>
     </div>

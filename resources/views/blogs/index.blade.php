@@ -11,4 +11,4 @@
     <x-hero />
     <x-blog-section :blogs="$blogs" />
     <x-subscribe />
-</x-layout>
+</x-layout> 

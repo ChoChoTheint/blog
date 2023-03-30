@@ -15,19 +15,10 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/',[BlogController::class,'index'])->name('home');
-// Route::get('/',function(){
-    // $user = User::take(1)->get();
-    // $user->each(function ($user){
-        // Mail::to($user)->send(new SubscriberMail());
-    // });
-    // return 'mail sent';
-//    
-// })->name('home');
-// 
 Route::get('/blogs/{blog:slug}',[BlogController::class,'show'])->where('blog','[A-z\0-9\-]+');
-// Route::get('/categories/{category:slug}',[CategoryController::class,'index'])->where('id','[A-z\d\-_]+');
+Route::get('/categories/{category:slug}',[CategoryController::class,'index'])->where('id','[A-z\d\-_]+');
 Route::get('/users/{user::username}',function(User $user){
-    return view('blogs',[
+    return view('blogs.show',[
         'blogs' =>$user->blogs,
         'categories' =>Category::all()
     ]);
@@ -49,3 +40,6 @@ Route::get('/admin/create',[AdminBlogController::class,'create'])->middleware('a
 
 Route::post('/admin/blogs',[AdminBlogController::class,'store']);
 Route::delete('/admin/blogs/{blog}',[AdminBlogController::class,'destory']);
+// error
+Route::get('/admin/blogs/{blog}',[AdminBlogController::class,'edit']);
+Route::post("admin/blogs/{blogs}",[AdminBlogController::class,"update"]);

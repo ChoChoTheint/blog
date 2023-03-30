@@ -16,7 +16,11 @@
             <td>{{$blog->title}}</td>
             <td>{{$blog->slug}}</td>
             <td class="d-flex">
-                <button class="btn btn-warning mx-2">Edit</button>
+              <div class="mx-2">
+                <button class="btn btn-primary ">
+                  <a href="/admin/blogs/{{$blog->id}}" style="text-decoration: none;color:white">Edit</a>
+                </button>              
+              </div>
                 <form action="/admin/blogs/{{$blog->id}}" method="POST">
                     @csrf
                     @method('delete')

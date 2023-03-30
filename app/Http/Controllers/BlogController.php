@@ -8,24 +8,25 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    // public function getBlogs(){
-    //     return 
-    // } 
+   
     public function index(){
-        // $blogs = $this->getBlogs();
+        // if($search=request('search')){
+            // dd($search);
+        // };
         return view('blogs.index',[
-        'blogs' =>Blog::latest()->filter(request(['search','category','author']))->paginate(3)->withQueryString()
+        'blogs' => Blog::latest()->filter(request(['search','category','author']))
+        ->paginate(3)
+        ->withQueryString()
         
-            ]);
+        ]);
     }
 
     public function show(Blog $blog){
         
             return view('blogs.show',[
                 'blog' => $blog->load('comments'),
-                'ramdomBlogs' => Blog::inRandomOrder()->take(2)->get()
-                // 'categories' => Category::all()
-                ]);
+                'randomBlogs' => Blog::inRandomOrder()->take(4)->get()
+            ]);
         
     }
 }

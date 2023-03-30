@@ -10,7 +10,7 @@ class CommentController extends Controller
 {
     public function store(Blog $blog)
     {   
-       dd($blog->subscribedUsers());
+    //    dd($blog->subscribedUsers());
         request()->validate([
             'body' => 'required'
         ]);

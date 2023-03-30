@@ -21,16 +21,8 @@ class AdminBlogController extends Controller
     }
     public function store(Request $request){
   
-        $cleanData = request()->validate([
-            "title" => ['required'],
-            "slug" => ['required'],
-            "body" => ['required'],
-            "photo" => ['image'],
-            "category_id" => ['required',Rule::exists('categories','id')]
-        ]);
-        // dd($cleanData);
+        $cleanData = $this->requestData();
          $path = request('photo')->store('my-photo');
-         $cleanData['user_id'] = auth()->id();
          $cleanData['photo'] = $path;
          Blog::create($cleanData);
          return redirect('/');
@@ -38,5 +30,46 @@ class AdminBlogController extends Controller
     public function destory(Blog $blog){
             $blog->delete();
            return back();
+    }
+
+    public function edit(Blog $blog)
+    {
+        return view("admin.edit",[
+            'blog'=>$blog,
+            'categories'=>Category::all()
+        ]);
+    }
+
+
+    public function update(Blog $blog)
+    {
+
+       $getData = $this->requestData();
+
+       if(request('photo') == null){
+            $getData['photo'] = $blog->photo;
+       }else{
+        $path = request('photo')->store("my-photo");
+            $getData['photo']=$path;
+       }
+
+       Blog::where("id",$blog->id)->update($getData);
+       return back();
+    }
+
+
+    private function requestData()
+    {
+        $requestData = request()->validate([
+            'title'=>'required',
+            'slug'=>'required',
+            'body'=>'required',
+            'intro'=>'required',
+            'photo'=>"image",
+            'category_id'=>['required',Rule::exists("categories",'id')],
+        ]);
+        $requestData['user_id'] = auth()->user()->id;
+
+        return $requestData;
     }
 }
