@@ -35,11 +35,14 @@ Route::post('/blogs/{blog:slug}/comments',[CommentController::class,'store'])->n
 
 Route::post('/blogs/{blog:slug}/subscription',[SubscriptionController::class,'toggleSubscription']);
 
-Route::get('/admin',[AdminBlogController::class,'index'])->middleware('admin');
-Route::get('/admin/create',[AdminBlogController::class,'create'])->middleware('admin');
-
-Route::post('/admin/blogs',[AdminBlogController::class,'store']);
-Route::delete('/admin/blogs/{blog}',[AdminBlogController::class,'destory']);
-// error
-Route::get('/admin/blogs/{blog}',[AdminBlogController::class,'edit']);
-Route::post("admin/blogs/{blogs}",[AdminBlogController::class,"update"]);
+Route::middleware('admin')->prefix('/admin')->group(function(){
+    Route::get('',[AdminBlogController::class,'index']);
+    Route::get('/create',[AdminBlogController::class,'create']);
+    
+    Route::post('/blogs',[AdminBlogController::class,'store']);
+    Route::delete('/blogs/{blog}',[AdminBlogController::class,'destory']);
+    // error
+    Route::get('/blogs/{blog}',[AdminBlogController::class,'edit']);
+    Route::post('/blogs/{blogs}',[AdminBlogController::class,"update"]);
+    
+});

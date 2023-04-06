@@ -16,8 +16,12 @@
                         <x-form name='title' title="Title" type="text" value="{{ $blog->title }}" :old=" old('title') "/>
 
                         <x-form name='slug' title="Slug" type="text" value="{{ $blog->slug }}" :old=" old('slug') "/>
-
-                        <x-form name="body" title="Body" type="text" value="{{ $blog->body }}" :old=" old('body') "/>
+                        
+                        <div class="mb-3">
+                            <label for="">Body</label>
+                            <textarea name="body" id="summernote" cols="30" rows="10" class="form-control" value="{{ $blog->body }}" :old=" old('body') " ></textarea>
+                        </div>
+                        <x-error name="body" />
 
                         <x-form name="photo" title="Photo" type="file" value="{{ $blog->photo }}" :old=" old('photo') "/>
 

@@ -5,6 +5,9 @@
         <div class="d-flex">
           <a href="/" class="nav-link">{{auth()->user()?->name}}</a>
           <a href="/" class="nav-link">Home</a>
+          @can('admin')
+          <a href="/admin" class="nav-link">Dashboard</a>
+          @endcan
           <a href="/#blogs" class="nav-link">Blogs</a>
           <a href="#subscribe" class="nav-link">Subscribe</a>
           @if(auth()->check())
